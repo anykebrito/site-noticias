@@ -1,0 +1,1838 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desempenho das notícias</title>
+</head>
+<style>
+    :root {
+
+        --azul: #0c3a77;
+        --azul-escuro: #071f40;
+        --azul-claro: #1769aa;
+        --azul-hover: #164d8d;
+
+        --branco: #ffffff;
+
+        --cinza-fundo: #f4f6f8;
+        --cinza-texto: #333333;
+        --cinza-claro: #6b7280;
+        --cinza-borda: #e5e7eb;
+
+        --vermelho: #c62828;
+
+        --sombra: 0 8px 25px rgba(0, 0, 0, 0.08);
+
+        --sombra-hover:
+            0 14px 35px rgba(0, 0, 0, 0.15);
+
+        --raio: 14px;
+    }
+
+    * {
+
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+
+    html {
+
+        scroll-behavior: smooth;
+    }
+
+
+    body {
+
+        font-family:
+            "Segoe UI",
+            Tahoma,
+            Geneva,
+            Verdana,
+            sans-serif;
+        background-color: var(--cinza-fundo);
+        color: var(--cinza-texto);
+        line-height: 1.7;
+    }
+
+
+    img {
+
+        max-width: 100%;
+    }
+
+    header {
+
+        background:
+            linear-gradient(135deg,
+                var(--azul-escuro),
+                var(--azul),
+                var(--azul-claro));
+
+        color: white;
+        padding: 35px 20px 45px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+
+    header::before {
+
+        content: "";
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        background:
+            rgba(255, 255, 255, 0.06);
+        top: -160px;
+        left: -80px;
+    }
+
+
+    header::after {
+
+        content: "";
+        position: absolute;
+        width: 350px;
+        height: 350px;
+        border-radius: 50%;
+        background:
+            rgba(255, 255, 255, 0.05);
+
+        bottom: -230px;
+        right: -100px;
+    }
+
+
+    header h1 {
+
+        font-family:
+            Georgia,
+            "Times New Roman",
+            serif;
+
+        font-size: 3rem;
+        letter-spacing: 1px;
+        position: relative;
+        z-index: 2;
+    }
+
+
+    header p {
+        margin-top: 8px;
+        font-size: 1rem;
+        opacity: 0.9;
+        position: relative;
+        z-index: 2;
+    }
+
+    /*logo*/
+    .imagem-exemplo {
+        width: 100%;
+        height: 85px;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-bottom:
+            1px solid var(--cinza-borda);
+    }
+
+
+    .img-amostra {
+
+        width: 100%;
+        height: 85px;
+        object-fit: contain;
+        display: block;
+    }
+
+    .barra-info {
+
+        background-color:
+            var(--azul-escuro);
+        color: white;
+        padding: 9px 20px;
+        font-size: 0.85rem;
+        display: flex;
+        justify-content: center;
+        gap: 25px;
+        letter-spacing: 0.3px;
+    }
+
+
+    .barra-info span {
+
+        opacity: 0.9;
+    }
+
+    .layout {
+
+        display: flex;
+        width: 100%;
+        min-height: 100vh;
+        align-items: stretch;
+    }
+
+    /*menu lateral*/
+    aside {
+
+        width: 245px;
+        min-height: 100%;
+        background:
+            linear-gradient(100deg,
+                var(--azul-escuro),
+                var(--azul));
+
+        color: white;
+        flex-shrink: 0;
+        position: sticky;
+        top: 0;
+        align-self: flex-start;
+        box-shadow:
+            5px 0 18px rgba(0, 0, 0, 0.08);
+    }
+
+
+    .menu-titulo {
+
+        padding:
+            28px 25px 15px;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #bcd1e9;
+    }
+
+
+    aside nav {
+
+        padding:
+            5px 15px 25px;
+    }
+
+    /*links menu*/
+    aside nav>a,
+    .menu-botao {
+
+        width: 100%;
+        display: flex;
+        align-items: center;
+        color: white;
+        text-decoration: none;
+        margin: 5px 0;
+        padding: 13px 15px;
+        border-radius: 9px;
+        font-size: 0.95rem;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+        text-align: left;
+        transition:
+            background 0.25s ease,
+            transform 0.25s ease,
+            padding-left 0.25s ease;
+    }
+
+
+    aside nav>a:hover,
+    .menu-botao:hover {
+
+        background:
+            rgba(255, 255, 255, 0.12);
+        padding-left: 20px;
+        transform:
+            translateX(3px);
+    }
+
+
+    aside nav>a::before {
+
+        content: "›";
+        font-size: 1.3rem;
+        margin-right: 12px;
+        opacity: 0.7;
+    }
+
+    /*tecnologias e esporte*/
+    .menu-botao {
+
+        justify-content:
+            space-between;
+    }
+
+
+    .nome-menu {
+
+        display: flex;
+        align-items: center;
+    }
+
+
+    .nome-menu::before {
+
+        content: "›";
+        font-size: 1.3rem;
+        margin-right: 12px;
+        opacity: 0.7;
+        transition:
+            transform 0.25s ease;
+    }
+
+
+    .menu-botao.aberto .nome-menu::before {
+
+        transform:
+            rotate(90deg);
+    }
+
+
+    .seta {
+
+        font-size: 0.7rem;
+        transition:
+            transform 0.3s ease;
+    }
+
+
+    .menu-botao.aberto .seta {
+        transform:
+            rotate(180deg);
+    }
+
+    .submenu {
+
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition:
+            max-height 0.35s ease,
+            opacity 0.25s ease;
+    }
+
+
+    .submenu.aberto {
+
+        max-height: 200px;
+        opacity: 1;
+    }
+
+    /*lista ordenada*/
+    .submenu ol {
+
+        margin:
+            3px 0 10px 0;
+        padding-left: 55px;
+        color: #dbe8f5;
+    }
+
+
+    .submenu li {
+
+        padding: 5px;
+        font-size: 0.84rem;
+        transition:
+            color 0.2s ease,
+            transform 0.2s ease;
+    }
+
+
+    .submenu li:hover {
+
+        color: white;
+        transform:
+            translateX(4px);
+    }
+
+    /*caixa menu*/
+    .menu-destaque {
+
+        margin: 15px;
+        padding: 18px;
+        border-radius: 12px;
+        background:
+            rgba(255, 255, 255, 0.09);
+        border:
+            1px solid rgba(255, 255, 255, 0.1);
+    }
+
+
+    .menu-destaque strong {
+
+        display: block;
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+    }
+
+
+    .menu-destaque p {
+
+        font-size: 0.78rem;
+        color: #cbd8e8;
+    }
+
+    /*conteúdo principal*/
+    main {
+
+        flex: 1;
+        padding: 45px;
+        max-width: 1250px;
+        margin: 0 auto;
+        animation:
+            aparecer 0.7s ease;
+    }
+
+    .titulo-secao {
+
+        display: flex;
+        align-items: center;
+        justify-content:
+            space-between;
+        margin-bottom: 25px;
+    }
+
+
+    .titulo-secao h1 {
+
+        color:
+            var(--azul-escuro);
+        font-size: 1.9rem;
+        position: relative;
+    }
+
+
+    .titulo-secao h1::after {
+
+        content: "";
+        display: block;
+        width: 55px;
+        height: 4px;
+        background:
+            var(--azul-claro);
+        border-radius: 10px;
+        margin-top: 6px;
+    }
+
+
+    .titulo-secao span {
+
+        color:
+            var(--cinza-claro);
+
+        font-size: 0.85rem;
+    }
+
+    .noticia {
+
+        background-color: white;
+        border-radius:
+            var(--raio);
+        overflow: hidden;
+        box-shadow:
+            var(--sombra);
+        transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
+        margin-bottom: 50px;
+    }
+
+
+    .noticia:hover {
+
+        transform:
+            translateY(-4px);
+        box-shadow:
+            var(--sombra-hover);
+    }
+
+
+    .imagem-noticia {
+
+        position: relative;
+        overflow: hidden;
+        background-color: #ddd;
+    }
+
+
+    .noticia img {
+
+        width: 100%;
+        height: 430px;
+        object-fit: cover;
+        display: block;
+        transition:
+            transform 0.5s ease;
+    }
+
+
+    .noticia:hover img {
+
+        transform:
+            scale(1.025);
+    }
+
+
+    .etiqueta {
+
+        position: absolute;
+        top: 18px;
+        left: 18px;
+        background:
+            var(--vermelho);
+        color: white;
+        padding:
+            6px 13px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+    }
+
+
+    .legenda {
+
+        padding:
+            12px 22px;
+        color:
+            var(--cinza-claro);
+        font-size: 0.8rem;
+        border-bottom:
+            1px solid var(--cinza-borda);
+    }
+
+
+    .conteudo-noticia {
+
+        padding:
+            28px 30px 32px;
+    }
+
+
+    .conteudo-noticia h2 {
+
+        color:
+            var(--azul-escuro);
+        font-family:
+            Georgia,
+            "Times New Roman",
+            serif;
+        font-size: 1.75rem;
+        line-height: 1.35;
+        margin-bottom: 20px;
+    }
+
+
+    .conteudo-noticia p {
+
+        font-size: 1rem;
+        color: #444;
+        margin-bottom: 17px;
+    }
+
+
+    .conteudo-noticia strong {
+
+        color:
+            var(--azul-escuro);
+    }
+
+
+    .vermelho {
+
+        color:
+            var(--vermelho);
+        font-weight: 600;
+    }
+
+
+    mark {
+
+        background-color:
+            #fff0a8;
+        padding:
+            2px 5px;
+        border-radius: 3px;
+        color: #333;
+    }
+
+    .info-noticia {
+
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding-top: 20px;
+        margin-top: 20px;
+        border-top:
+            1px solid var(--cinza-borda);
+        color:
+            var(--cinza-claro);
+        font-size: 0.8rem;
+    }
+
+
+    .ponto {
+
+        width: 5px;
+        height: 5px;
+        background:
+            var(--azul-claro);
+        border-radius: 50%;
+    }
+
+    /*cards notícias*/
+    .titulo-cards {
+
+        margin-top: 10px;
+        margin-bottom: 25px;
+    }
+
+
+    .titulo-cards h2 {
+
+        color:
+            var(--azul-escuro);
+        font-family:
+            Georgia,
+            "Times New Roman",
+            serif;
+        font-size: 1.7rem;
+    }
+
+
+    .titulo-cards p {
+
+        color:
+            var(--cinza-claro);
+        font-size: 0.9rem;
+        margin-top: 4px;
+    }
+
+    /*grid dos card*/
+    .cards-noticias {
+
+        display: grid;
+        grid-template-columns:
+            repeat(3, 1fr);
+        gap: 22px;
+        margin-bottom: 45px;
+    }
+
+    /*card indiviual*/
+    .card-noticia {
+
+        background:
+            var(--branco);
+
+        border:
+            1px solid var(--cinza-borda);
+
+        border-radius:
+            14px;
+
+        overflow: hidden;
+
+        text-decoration: none;
+
+        color:
+            var(--cinza-texto);
+
+        box-shadow:
+            0 5px 18px rgba(0, 0, 0, 0.05);
+
+        transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease,
+            border-color 0.3s ease;
+    }
+
+
+    .card-noticia:hover {
+
+        transform:
+            translateY(-7px);
+
+        box-shadow:
+            var(--sombra-hover);
+
+        border-color:
+            #b8cce0;
+    }
+
+    .imagem-card {
+
+        width: 100%;
+
+        height: 210px;
+
+        overflow: hidden;
+
+        position: relative;
+
+        background-color: #ddd;
+    }
+
+
+    .imagem-card img {
+
+        width: 100%;
+
+        height: 100%;
+
+        object-fit: cover;
+
+        display: block;
+
+        transition:
+            transform 0.5s ease;
+    }
+
+
+    .card-noticia:hover .imagem-card img {
+
+        transform:
+            scale(1.07);
+    }
+
+    .categoria-card {
+
+        position: absolute;
+
+        top: 14px;
+        left: 14px;
+
+        padding:
+            5px 11px;
+
+        background:
+            var(--azul);
+
+        color: white;
+
+        border-radius: 20px;
+
+        font-size: 0.68rem;
+
+        font-weight: bold;
+
+        text-transform: uppercase;
+
+        letter-spacing: 0.5px;
+    }
+
+    .texto-card {
+
+        padding:
+            20px 20px 22px;
+    }
+
+
+    .texto-card h3 {
+
+        color:
+            var(--azul-escuro);
+
+        font-family:
+            Georgia,
+            "Times New Roman",
+            serif;
+
+        font-size: 1.2rem;
+
+        line-height: 1.35;
+
+        margin-bottom: 10px;
+    }
+
+
+    .texto-card p {
+
+        color:
+            var(--cinza-claro);
+
+        font-size: 0.82rem;
+
+        line-height: 1.6;
+
+        margin-bottom: 15px;
+    }
+
+
+    .ler-noticia {
+
+        color:
+            var(--azul-claro);
+
+        font-size: 0.78rem;
+
+        font-weight: bold;
+
+        transition:
+            color 0.2s ease;
+    }
+
+
+    .card-noticia:hover .ler-noticia {
+
+        color:
+            var(--azul-escuro);
+    }
+
+    .categorias {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 18px;
+
+        margin-top: 35px;
+    }
+
+
+    .categoria {
+
+        background-color: white;
+
+        padding: 23px;
+
+        border-radius: 12px;
+
+        border:
+            1px solid var(--cinza-borda);
+
+        text-decoration: none;
+
+        color:
+            var(--cinza-texto);
+
+        transition:
+            transform 0.25s ease,
+            box-shadow 0.25s ease,
+            border-color 0.25s ease;
+    }
+
+
+    .categoria:hover {
+
+        transform:
+            translateY(-5px);
+
+        box-shadow:
+            var(--sombra);
+
+        border-color:
+            #bdd1e6;
+    }
+
+
+    .categoria .icone {
+
+        width: 42px;
+
+        height: 42px;
+
+        border-radius: 10px;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        background:
+            #eaf2fb;
+
+        color:
+            var(--azul);
+
+        font-size: 0.8rem;
+
+        font-weight: bold;
+
+        margin-bottom: 13px;
+    }
+
+
+    .categoria h3 {
+
+        color:
+            var(--azul-escuro);
+
+        font-size: 1rem;
+
+        margin-bottom: 4px;
+    }
+
+
+    .categoria p {
+
+        color:
+            var(--cinza-claro);
+
+        font-size: 0.78rem;
+    }
+
+    /*rodapé*/
+    footer {
+
+        background:
+            var(--azul-escuro);
+
+        color: white;
+
+        padding:
+            35px 25px;
+
+        text-align: center;
+
+        margin-top: 30px;
+    }
+
+
+    footer h3 {
+
+        font-family:
+            Georgia,
+            "Times New Roman",
+            serif;
+
+        font-size: 1.4rem;
+
+        margin-bottom: 8px;
+    }
+
+
+    footer p {
+
+        color: #b9c7d8;
+
+        font-size: 0.8rem;
+    }
+
+
+    .linha-footer {
+
+        width: 50px;
+
+        height: 3px;
+
+        background:
+            var(--azul-claro);
+
+        border-radius: 10px;
+
+        margin:
+            12px auto 15px;
+    }
+
+    /*animações*/
+    @keyframes aparecer {
+
+        from {
+
+            opacity: 0;
+
+            transform:
+                translateY(15px);
+        }
+
+        to {
+
+            opacity: 1;
+
+            transform:
+                translateY(0);
+        }
+
+    }
+
+    /*tamanho da tela - tablet*/
+    @media (max-width: 1000px) {
+
+        aside {
+
+            width: 210px;
+        }
+
+
+        main {
+
+            padding: 30px;
+        }
+
+
+        .cards-noticias {
+
+            grid-template-columns:
+                repeat(2, 1fr);
+        }
+
+
+        .categorias {
+
+            grid-template-columns:
+                repeat(2, 1fr);
+        }
+
+
+        .noticia img {
+
+            height: 350px;
+        }
+
+    }
+
+
+    /*celular*/
+
+    @media (max-width: 700px) {
+
+        header {
+
+            padding:
+                28px 15px 35px;
+        }
+
+
+        header h1 {
+
+            font-size: 2.2rem;
+        }
+
+
+        .barra-info {
+
+            font-size: 0.72rem;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+        }
+
+
+        .layout {
+
+            flex-direction: column;
+        }
+
+
+        aside {
+
+            width: 100%;
+
+            min-height: auto;
+
+            position: relative;
+        }
+
+
+        .menu-titulo {
+
+            padding:
+                18px 20px 8px;
+        }
+
+
+        aside nav {
+
+            padding:
+                5px 12px 15px;
+        }
+
+
+        aside nav>a,
+        .menu-botao {
+
+            padding: 10px;
+        }
+
+
+        .menu-destaque {
+
+            display: none;
+        }
+
+
+        main {
+
+            padding:
+                25px 16px;
+        }
+
+
+        .titulo-secao {
+
+            align-items:
+                flex-start;
+
+            flex-direction:
+                column;
+
+            gap: 5px;
+        }
+
+
+        .titulo-secao h1 {
+
+            font-size:
+                1.55rem;
+        }
+
+
+        .noticia img {
+
+            height: 260px;
+        }
+
+
+        .conteudo-noticia {
+
+            padding:
+                22px 20px;
+        }
+
+
+        .conteudo-noticia h2 {
+
+            font-size:
+                1.35rem;
+        }
+
+
+        .conteudo-noticia p {
+
+            font-size:
+                0.92rem;
+        }
+
+
+        .cards-noticias {
+
+            grid-template-columns:
+                1fr;
+
+            gap: 18px;
+        }
+
+
+        .imagem-card {
+
+            height: 230px;
+        }
+
+
+        .categorias {
+
+            grid-template-columns:
+                1fr;
+        }
+
+
+        .imagem-exemplo,
+        .img-amostra {
+
+            height: 70px;
+        }
+
+    }
+
+    .video-exemplo {
+        width: 100%;
+        max-width: 900px;
+        margin: 35px auto;
+        padding: 12px;
+
+        background-color: var(--cor-branco);
+
+        border-radius: 14px;
+
+        box-shadow:
+            0 8px 25px rgba(0, 0, 0, 0.08);
+
+        border:
+            1px solid var(--cinza-borda);
+
+        overflow: hidden;
+
+        transition:
+            transform 0.3s ease,
+            box-shadow 0.3s ease;
+    }
+
+
+    .video-exemplo:hover {
+        transform: translateY(-4px);
+
+        box-shadow:
+            0 14px 35px rgba(0, 0, 0, 0.15);
+    }
+
+
+    .video-amostra {
+        width: 100%;
+        height: 480px;
+
+        display: block;
+
+        object-fit: cover;
+
+        border: none;
+
+        border-radius: 10px;
+
+        background-color: #111;
+    }
+
+
+    /*legenda*/
+
+    .video-exemplo::after {
+        content: "Demonstração em vídeo";
+
+        display: block;
+
+        padding: 12px 8px 5px;
+
+        color: var(--cinza-claro);
+
+        font-size: 0.8rem;
+
+        text-align: center;
+
+        /* =====================================================
+   DESEMPENHO DAS NOTÍCIAS
+===================================================== */
+
+        .desempenho {
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+
+        .desempenho h2 {
+            color: var(--azul-escuro);
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: 1.7rem;
+            margin-bottom: 20px;
+        }
+
+        .desempenho table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .desempenho thead {
+            background-color: var(--azul-escuro);
+            color: white;
+        }
+
+        .desempenho th,
+        .desempenho td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--cinza-borda);
+        }
+
+        .desempenho th {
+            font-size: 0.9rem;
+        }
+
+        .desempenho td {
+            font-size: 0.85rem;
+        }
+
+        .desempenho tbody tr:hover {
+            background-color: #f5f8fc;
+        }
+
+        .desempenho tfoot {
+            background-color: #eef4fa;
+            font-weight: bold;
+            color: var(--azul-escuro);
+        }
+
+        .desempenho tfoot td {
+            text-align: right;
+        }
+    }
+</style>
+
+
+<body>
+    <header>
+        <h1>Desempenho das notícias</h1>
+    </header>
+    <p>
+        Informação, atualidade e os principais acontecimentos do Brasil
+    </p>
+
+    </header>
+    <div class="imagem-exemplo">
+
+        <img class="img-amostra" src="imagens/logo.jpg" alt="Logo Notícias Online">
+
+    </div>
+
+    <div class="barra-info">
+
+        <span>
+            ● Portal de notícias
+        </span>
+
+        <span>
+            Informação atualizada
+        </span>
+
+        <span>
+            Desempenho das notícias • Tecnologia • Educação • Saúde
+        </span>
+
+    </div>
+
+    <div class="layout">
+        <aside>
+
+            <div class="menu-titulo">
+                Categorias
+            </div>
+
+
+            <nav>
+
+
+                <a href="/noticia.html">
+                    Desempenho das notícias
+                </a>
+
+
+                <a href="/educacao">
+                    Educação
+                </a>
+
+
+                <a href="/entretenimento">
+                    Entretenimento
+                </a>
+
+
+                <a href="/negocios">
+                    Negócios
+                </a>
+                <button class="menu-botao" onclick="abrirMenu('tecnologia', this)">
+
+                    <span class="nome-menu">
+                        Tecnologia
+                    </span>
+
+                    <span class="seta">
+                        ▼
+                    </span>
+
+                </button>
+
+
+                <div id="tecnologia" class="submenu">
+
+                    <ol>
+
+                        <li>
+                            Inteligência Artificial
+                        </li>
+
+                        <li>
+                            Programação
+                        </li>
+
+                        <li>
+                            Hardware
+                        </li>
+
+                    </ol>
+
+                </div>
+
+                <button class="menu-botao" onclick="abrirMenu('esportes', this)">
+
+                    <span class="nome-menu">
+                        Esportes
+                    </span>
+
+                    <span class="seta">
+                        ▼
+                    </span>
+
+                </button>
+
+
+                <div id="esportes" class="submenu">
+
+                    <ol>
+
+                        <li>
+                            Futebol
+                        </li>
+
+                        <li>
+                            Basquete
+                        </li>
+
+                        <li>
+                            Vôlei
+                        </li>
+
+                    </ol>
+
+                </div>
+
+
+                <a href="/saude">
+                    Saúde
+                </a>
+
+
+            </nav>
+
+
+            <div class="menu-destaque">
+
+                <strong>
+                    Notícias Hoje
+                </strong>
+
+                <p>
+                    Acompanhe os principais assuntos
+                    e acontecimentos em destaque.
+                </p>
+
+            </div>
+
+        </aside>
+
+        <main>
+            <div class="titulo-secao">
+
+                <h1>
+                    Principais notícias
+                </h1>
+
+                <span>
+                    Atualizado hoje
+                </span>
+
+            </div>
+
+            <article class="noticia">
+
+
+                <div class="imagem-noticia">
+
+                    <img src="imagens/chuva.webp" alt="Pessoa embaixo de um guarda-chuva">
+
+                    <span class="etiqueta">
+                        Destaque
+                    </span>
+
+                </div>
+
+
+                <div class="legenda">
+
+                    Temporais mais intensos avançam para o sul da Bahia e Norte.<br>
+                    <b>Por Anyke Linda</b>
+
+                </div>
+
+
+                <div class="conteudo-noticia">
+
+
+                    <h2>
+
+                        Chuva perde força no Sudeste nesta quinta-feira
+
+                    </h2>
+
+
+                    <p>
+
+                        A chuva perde força em Minas Gerais nesta quinta-feira (17), mas a frente fria continua
+                        influenciando o tempo em outras áreas do país. Há previsão de chuva mais intensa entre o
+                        Espírito Santo e a Bahia, além de pancadas isoladas em estados do Centro-Oeste e do Norte.
+                    </p>
+                    <p>
+                        No norte do Espírito Santo e no sul da Bahia, há risco de temporais. Em Teixeira de Freitas, no
+                        sul baiano, a previsão indica acumulados de até 30 milímetros de chuva.
+                    </p>
+                    <p>
+                        Em áreas de Mato Grosso, Goiás e no interior de Minas Gerais, a chuva deve ocorrer de forma mais
+                        isolada.
+                    </p>
+                    <h3><b>Calor e baixa umidade</b></h3>
+
+                    <p>Enquanto algumas regiões enfrentam chuva, outras registram calor intenso e baixa umidade do ar.
+                    </p>
+                    <p>Em parte do Tocantins, Maranhão e Piauí, a umidade relativa do ar pode chegar a 12%, condição que
+                        exige atenção aos cuidados com a saúde.</p>
+                    <p>Já em áreas de São Paulo, Rio de Janeiro e no sul de Minas Gerais, a umidade permanece elevada.
+                    </p>
+
+                    <h3>
+                        <p>Temperaturas</p>
+                    </h3>
+                    <p>São Paulo deve registrar a menor temperatura máxima entre as capitais citadas, com 17°C. No Rio
+                        de Janeiro, a previsão é de 22°C, enquanto Curitiba pode chegar a 18°C.</p>
+                    <p>Em contrapartida, Teresina tem máxima prevista de 40°C, Palmas de 39°C e Cuiabá de 38°C.</p>
+
+                    <h3>
+                        <p>Previsão para os próximos dias</p>
+                    </h3>
+                    <p>A chuva deve ganhar força na Região Sul a partir desta sexta-feira (18), com previsão de
+                        acumulados que podem chegar a 100 milímetros até domingo (20).</p>
+                    <p>O litoral do Nordeste também deve continuar registrando chuva nos próximos dias.</p>
+
+                    <div class="video-exemplo">
+                        <video class="video-amostra" controls poster="imagens/capa.jpg">
+                            <source src="./video.mp4" type="video/mp4">
+                            Seu navegador não suporta a tag de vídeo.
+                        </video>
+                        <p class="legenda">Clima na região.</p>
+                    </div>
+
+                    <div class="info-noticia">
+
+                        <span>
+                            Brasil
+                        </span>
+
+                        <span class="ponto"></span>
+
+                        <span>
+                            Política
+                        </span>
+
+                        <span class="ponto"></span>
+
+                        <span>
+                            Notícia em destaque
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </article>
+
+            <section>
+
+
+                <div class="titulo-cards">
+
+                    <h2>
+                        Mais notícias
+                    </h2>
+
+                    <p>
+                        Confira outros assuntos em destaque
+                    </p>
+
+                </div>
+
+
+                <div class="cards-noticias">
+                    <a href="#" class="card-noticia">
+
+                        <div class="imagem-card">
+
+                            <img src="imagens/bolsa-familia.webp.webp" alt="Cartão do Programa Família">
+
+                            <span class="categoria-card">
+                                Brasil
+                            </span>
+
+                        </div>
+
+
+                        <div class="texto-card">
+
+                            <h3>
+                                Programa social ganha destaque
+                                entre os assuntos do dia
+                            </h3>
+
+                            <p>
+                                Benefícios e iniciativas sociais
+                                estão entre os temas acompanhados
+                                pelo público.
+                            </p>
+
+                            <span class="ler-noticia">
+                                Ler notícia →
+                            </span>
+
+                        </div>
+
+                    </a>
+
+                    <a href="#" class="card-noticia">
+
+                        <div class="imagem-card">
+
+                            <img src="imagens/politica.webp" alt="Donald Trump e Luiz Inácio Lula da Silva">
+
+                            <span class="categoria-card">
+                                Mundo
+                            </span>
+
+                        </div>
+
+
+                        <div class="texto-card">
+
+                            <h3>
+                                Encontro entre líderes chama
+                                atenção na agenda internacional
+                            </h3>
+
+                            <p>
+                                Relações internacionais e encontros
+                                diplomáticos estão entre os assuntos
+                                em destaque.
+                            </p>
+
+                            <span class="ler-noticia">
+                                Ler notícia →
+                            </span>
+
+                        </div>
+
+                    </a>
+                    <a href="#" class="card-noticia">
+
+                        <div class="imagem-card">
+
+                            <img src="imagens/cidade.webp" alt="Vista de uma cidade cercada por montanhas">
+
+                            <span class="categoria-card">
+                                Cidades
+                            </span>
+
+                        </div>
+
+
+                        <div class="texto-card">
+
+                            <h3>
+                                Cidade em destaque: paisagens,
+                                crescimento e desenvolvimento
+                            </h3>
+
+                            <p>
+                                Conheça um pouco mais sobre cidades,
+                                regiões e os acontecimentos que
+                                movimentam seus moradores.
+                            </p>
+
+                            <span class="ler-noticia">
+                                Ler notícia →
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+                </div>
+
+            </section>
+            <div class="titulo-secao">
+
+                <h1>
+                    Explore as categorias
+                </h1>
+
+            </div>
+
+
+            <section class="categorias">
+
+
+                <a href="/brasil" class="categoria">
+
+                    <div class="icone">
+                        BR
+                    </div>
+
+                    <h3>
+                        Brasil
+                    </h3>
+
+                    <p>
+                        Principais acontecimentos do país.
+                    </p>
+
+                </a>
+
+
+                <a href="/educacao" class="categoria">
+
+                    <div class="icone">
+                        ED
+                    </div>
+
+                    <h3>
+                        Educação
+                    </h3>
+
+                    <p>
+                        Notícias sobre escolas e ensino.
+                    </p>
+
+                </a>
+
+
+                <a href="/tecnologia" class="categoria">
+
+                    <div class="icone">
+                        TE
+                    </div>
+
+                    <h3>
+                        Tecnologia
+                    </h3>
+
+                    <p>
+                        Inovações e novidades tecnológicas.
+                    </p>
+
+                </a>
+
+
+                <a href="/negocios" class="categoria">
+
+                    <div class="icone">
+                        NE
+                    </div>
+
+                    <h3>
+                        Negócios
+                    </h3>
+
+                    <p>
+                        Mercado, empresas e economia.
+                    </p>
+
+                </a>
+
+
+                <a href="/saude" class="categoria">
+
+                    <div class="icone">
+                        SA
+                    </div>
+
+                    <h3>
+                        Saúde
+                    </h3>
+
+                    <p>
+                        Informações e novidades sobre saúde.
+                    </p>
+
+                </a>
+
+
+                <a href="/entretenimento" class="categoria">
+
+                    <div class="icone">
+                        EN
+                    </div>
+
+                    <h3>
+                        Entretenimento
+                    </h3>
+
+                    <p>
+                        Cultura, televisão e diversão.
+                    </p>
+
+                </a>
+
+
+            </section>
+
+
+        </main>
+
+    </div>
+
+    <footer>
+
+        <h3>
+            Notícias Hoje!
+        </h3>
+
+        <div class="linha-footer"></div>
+
+        <p>
+            Informação e atualidade em um só lugar.
+        </p>
+
+        <p>
+            © 2026 Notícias Hoje — Todos os direitos reservados.
+        </p>
+
+    </footer>
+
+    <script>
+
+        function abrirMenu(id, botao) {
+
+            const submenu =
+                document.getElementById(id);
+
+            const estaAberto =
+                submenu.classList.contains("aberto");
+
+            document
+                .querySelectorAll(".submenu")
+                .forEach(function (menu) {
+
+                    menu.classList.remove("aberto");
+
+                });
+
+            document
+                .querySelectorAll(".menu-botao")
+                .forEach(function (item) {
+
+                    item.classList.remove("aberto");
+
+                });
+
+            if (!estaAberto) {
+
+                submenu.classList.add("aberto");
+
+                botao.classList.add("aberto");
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>
