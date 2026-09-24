@@ -2,15 +2,18 @@
 <html lang="pt-br">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notícias Hoje | Informação em tempo real</title>
+
+    <title>Notícias Hoje!</title>
+
     <style>
         :root {
             --azul: #0c3a77;
-            --azul-escuro: #0b2854;
-            --azul-claro: #2c70b7;
-            --azul-hover: #164f91;
+            --azul-escuro: #071f40;
+            --azul-claro: #1769aa;
             --branco: #ffffff;
             --fundo: #f3f5f8;
             --texto: #333333;
@@ -25,26 +28,21 @@
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--fundo);
             color: var(--texto);
             line-height: 1.6;
         }
 
-        img {
-            max-width: 100%;
-        }
-
         header {
             position: relative;
             overflow: hidden;
-            background: linear-gradient(135deg, var(--azul-escuro), var(--azul), var(--azul-claro));
-            color: var(--branco);
+            background: linear-gradient(135deg,
+                    var(--azul-escuro),
+                    var(--azul),
+                    var(--azul-claro));
+            color: white;
             text-align: center;
             padding: 28px 20px;
         }
@@ -74,10 +72,8 @@
         header h1 {
             position: relative;
             z-index: 1;
-            font-family: Georgia, 'Times New Roman', serif;
+            font-family: Georgia, "Times New Roman", serif;
             font-size: 2.5rem;
-            margin: 0;
-            letter-spacing: 1px;
         }
 
         header p {
@@ -85,16 +81,13 @@
             z-index: 1;
             font-size: 0.85rem;
             margin-top: 4px;
-            opacity: 0.9;
         }
 
         .imagem-exemplo {
             width: 100%;
             height: 70px;
-            background-color: var(--branco);
-            text-align: center;
+            background-color: white;
             overflow: hidden;
-            margin: 0;
         }
 
         .img-amostra {
@@ -102,7 +95,6 @@
             height: 70px;
             object-fit: contain;
             display: block;
-            border: none;
         }
 
         .barra-superior {
@@ -125,103 +117,134 @@
             align-items: stretch;
         }
 
+        /* =========================
+           ASIDE
+        ========================= */
+
         aside {
             width: 245px;
-            flex-shrink: 0;
-            background: linear-gradient(180deg, var(--azul-escuro), var(--azul));
+            min-height: 100%;
+            background: linear-gradient(100deg,
+                    var(--azul-escuro),
+                    var(--azul));
             color: white;
-            padding: 20px 10px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            align-self: flex-start;
+            box-shadow: 5px 0 18px rgba(0, 0, 0, 0.08);
         }
 
-        .titulo-menu {
-            color: #aebfd7;
-            font-size: 0.65rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-            margin: 0 5px 15px;
+        .menu-titulo {
+            padding: 28px 25px 15px;
+            font-size: 0.75rem;
             text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #bcd1e9;
         }
 
-        aside nav a {
-            display: block;
+        aside nav {
+            padding: 5px 15px 25px;
+        }
+
+        aside nav>a,
+        .menu-dropdown summary {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
             color: white;
             text-decoration: none;
-            font-size: 0.8rem;
-            font-weight: 600;
-            padding: 10px;
-            border-radius: 8px;
-            margin: 0;
-            transition: 0.2s;
+            margin: 5px 0;
+            padding: 13px 15px;
+            border-radius: 9px;
+            font-size: 0.95rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            text-align: left;
+            transition: 0.25s;
         }
 
-        aside nav a:hover {
-            background-color: rgba(255, 255, 255, 0.12);
-            padding-left: 15px;
+        aside nav>a:hover,
+        .menu-dropdown summary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            padding-left: 20px;
+        }
+
+        aside nav>a::before {
+            content: "›";
+            font-size: 1.3rem;
+            margin-right: 12px;
+            opacity: 0.7;
         }
 
         .menu-dropdown {
-            margin: 0;
+            width: 100%;
         }
 
         .menu-dropdown summary {
-            color: white;
-            font-size: 0.8rem;
-            font-weight: 600;
-            padding: 10px;
-            border-radius: 8px;
-            cursor: pointer;
             list-style: none;
-            transition: 0.2s;
         }
 
-        .menu-dropdown summary:hover {
-            background-color: rgba(255, 255, 255, 0.12);
+        .menu-dropdown summary::-webkit-details-marker {
+            display: none;
         }
 
         .menu-dropdown summary::before {
             content: "›";
-            display: inline-block;
-            width: 18px;
-            font-size: 1rem;
+            font-size: 1.3rem;
+            margin-right: 12px;
+            opacity: 0.7;
         }
 
-        .menu-dropdown[open] summary::before {
-            content: "⌄";
+        .menu-dropdown summary span {
+            font-size: 0.7rem;
+            margin-left: auto;
+            transition: 0.3s;
+        }
+
+        .menu-dropdown[open] summary span {
+            transform: rotate(180deg);
         }
 
         .menu-dropdown ol {
-            margin: 0 0 0 35px;
-            padding-left: 15px;
-            color: #d9e4f2;
+            margin: 3px 0 10px;
+            padding-left: 55px;
+            color: #dbe8f5;
         }
 
         .menu-dropdown li {
-            padding: 3px 0;
-            font-size: 0.72rem;
+            padding: 5px;
+            font-size: 0.84rem;
         }
 
-        .caixa-lateral {
-            margin-top: 30px;
-            padding: 14px;
-            background-color: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 9px;
+        .menu-destaque {
+            margin: 15px;
+            padding: 18px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.09);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .caixa-lateral h3 {
-            font-size: 0.75rem;
-            margin: 0;
+        .menu-destaque strong {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
         }
 
-        .caixa-lateral p {
-            color: #d4dfed;
-            font-size: 0.65rem;
-            margin-top: 5px;
+        .menu-destaque p {
+            font-size: 0.78rem;
+            color: #cbd8e8;
         }
+
+        /* =========================
+           CONTEÚDO
+        ========================= */
 
         main {
             flex: 1;
-            width: 100%;
             max-width: 1250px;
             margin: 0 auto;
             padding: 35px 45px;
@@ -237,15 +260,13 @@
 
         section h2 {
             color: var(--azul-escuro);
-            font-family: Georgia, 'Times New Roman', serif;
+            font-family: Georgia, "Times New Roman", serif;
             font-size: 1.7rem;
-            margin: 0;
         }
 
         .subtitulo {
             color: var(--cinza);
             font-size: 0.75rem;
-            margin: 0;
         }
 
         .linha-titulo {
@@ -302,9 +323,8 @@
 
         .conteudo-noticia h2 {
             color: var(--azul-escuro);
-            font-family: Georgia, 'Times New Roman', serif;
+            font-family: Georgia, "Times New Roman", serif;
             font-size: 1.45rem;
-            margin: 0;
         }
 
         .conteudo-noticia p {
@@ -330,34 +350,6 @@
             font-size: 0.65rem;
         }
 
-        .video-exemplo {
-            width: 100%;
-            max-width: 900px;
-            margin: 25px auto;
-            padding: 10px;
-            background-color: white;
-            border: 1px solid var(--cinza-borda);
-            border-radius: 13px;
-            box-shadow: 0 7px 22px rgba(0, 0, 0, 0.07);
-        }
-
-        .video-amostra {
-            width: 100%;
-            height: 430px;
-            display: block;
-            object-fit: cover;
-            border: none;
-            border-radius: 9px;
-            background-color: #111;
-        }
-
-        .legenda-video {
-            color: var(--cinza);
-            font-size: 0.7rem;
-            padding: 8px;
-            text-align: left;
-        }
-
         .cards {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -369,13 +361,6 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
-            transition: transform 0.2s, box-shadow 0.2s;
-            margin: 0;
-        }
-
-        .card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
         }
 
         .card-imagem {
@@ -388,7 +373,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: block;
         }
 
         .categoria {
@@ -409,16 +393,13 @@
 
         .card-conteudo h3 {
             color: var(--azul-escuro);
-            font-family: Georgia, 'Times New Roman', serif;
+            font-family: Georgia, "Times New Roman", serif;
             font-size: 1rem;
-            margin: 0;
-            line-height: 1.3;
         }
 
         .card-conteudo p {
             color: var(--cinza);
             font-size: 0.65rem;
-            margin: 6px 0 0;
         }
 
         .desempenho {
@@ -447,22 +428,10 @@
             font-size: 0.78rem;
         }
 
-        .desempenho th {
-            font-weight: bold;
-        }
-
-        .desempenho tbody tr:hover {
-            background-color: #f5f8fc;
-        }
-
         .desempenho tfoot {
             background-color: #eef4fa;
-            color: var(--azul-escuro);
             font-weight: bold;
-        }
-
-        .desempenho tfoot td {
-            text-align: right;
+            color: var(--azul-escuro);
         }
 
         footer {
@@ -473,17 +442,16 @@
             font-size: 0.7rem;
         }
 
-        footer p {
-            margin: 0;
-        }
-
         @media (max-width: 1000px) {
+
             .cards {
                 grid-template-columns: repeat(2, 1fr);
             }
+
         }
 
         @media (max-width: 768px) {
+
             .layout {
                 flex-direction: column;
             }
@@ -491,10 +459,7 @@
             aside {
                 width: 100%;
                 min-height: auto;
-            }
-
-            aside nav {
-                display: block;
+                position: relative;
             }
 
             main {
@@ -509,220 +474,505 @@
                 height: 280px;
             }
 
-            .video-amostra {
-                height: 280px;
-            }
-
-            .desempenho {
-                overflow-x: auto;
-            }
-
-            .desempenho table {
-                min-width: 650px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            header h1 {
-                font-size: 2rem;
-            }
-
-            .noticia-imagem {
-                height: 220px;
-            }
-
-            .video-amostra {
-                height: 220px;
-            }
-
-            .conteudo-noticia h2 {
-                font-size: 1.2rem;
-            }
         }
     </style>
+
 </head>
 
 <body>
+
     <header>
-        <h1>Notícias Hoje!</h1>
-        <p>Informação, atualidade e os principais acontecimentos do Brasil</p>
+
+        <h1>
+            Notícias Hoje!
+        </h1>
+
+        <p>
+            Informação, atualidade e os principais acontecimentos do Brasil
+        </p>
+
     </header>
+
     <div class="imagem-exemplo">
+
         <img class="img-amostra" src="imagens/logo.jpg" alt="Logo Notícias Online">
+
     </div>
+
     <div class="barra-superior">
-        <span>• Portal de notícias</span>
-        <span>Informação atualizada</span>
-        <span>Desempenho das notícias</span>
-        <span>Tecnologia</span>
-        <span>Educação</span>
-        <span>Saúde</span>
+
+        <span>
+            • Portal de notícias
+        </span>
+
+        <span>
+            Informação atualizada
+        </span>
+
+        <span>
+            Desempenho das notícias
+        </span>
+
+        <span>
+            Tecnologia
+        </span>
+
+        <span>
+            Educação
+        </span>
+
+        <span>
+            Saúde
+        </span>
+
     </div>
+
     <div class="layout">
+
         <aside>
-            <div class="titulo-menu">Categorias</div>
-            <nav>
-                <a href="#">› Brasil</a>
-                <a href="#">› Educação</a>
-                <a href="#">› Entretenimento</a>
-                <a href="#">› Negócios</a>
-                <details class="menu-dropdown">
-                    <summary>Tecnologia</summary>
-                    <ol>
-                        <li>Inteligência Artificial</li>
-                        <li>Programação</li>
-                        <li>Hardware</li>
-                    </ol>
-                </details>
-                <details class="menu-dropdown">
-                    <summary>Esportes</summary>
-                    <ol>
-                        <li>Futebol</li>
-                        <li>Basquete</li>
-                        <li>Vôlei</li>
-                    </ol>
-                </details>
-                <a href="#">› Saúde</a>
-            </nav>
-            <div class="caixa-lateral">
-                <h3>Notícias Hoje</h3>
-                <p>Acompanhe os principais assuntos e acontecimentos em destaque.</p>
+
+            <div class="menu-titulo">
+                Categorias
             </div>
+
+            <nav>
+
+                <!-- VAI PARA desempenho.html -->
+                <a href="desempenho.html">
+                    Desempenho das notícias
+                </a>
+
+                <a href="#">
+                    Educação
+                </a>
+
+                <a href="#">
+                    Entretenimento
+                </a>
+
+                <a href="#">
+                    Negócios
+                </a>
+
+                <!-- VAI PARA chuva.html -->
+                <a href="chuva.html">
+                    Clima
+                </a>
+
+                <!-- TECNOLOGIA -->
+                <details class="menu-dropdown">
+
+                    <summary>
+                        Tecnologia
+                        <span>▼</span>
+                    </summary>
+
+                    <ol>
+
+                        <li>
+                            Inteligência Artificial
+                        </li>
+
+                        <li>
+                            Programação
+                        </li>
+
+                        <li>
+                            Hardware
+                        </li>
+
+                    </ol>
+
+                </details>
+
+                <!-- ESPORTES -->
+                <details class="menu-dropdown">
+
+                    <summary>
+                        Esportes
+                        <span>▼</span>
+                    </summary>
+
+                    <ol>
+
+                        <li>
+                            Futebol
+                        </li>
+
+                        <li>
+                            Basquete
+                        </li>
+
+                        <li>
+                            Vôlei
+                        </li>
+
+                    </ol>
+
+                </details>
+
+                <a href="#">
+                    Saúde
+                </a>
+
+            </nav>
+
+            <div class="menu-destaque">
+
+                <strong>
+                    Notícias Hoje
+                </strong>
+
+                <p>
+                    Acompanhe os principais assuntos
+                    e acontecimentos em destaque.
+                </p>
+
+            </div>
+
         </aside>
+
         <main>
+
             <section>
-                <h2>Principais notícias</h2>
-                <p class="subtitulo">Atualizado hoje</p>
+
+                <h2>
+                    Principais notícias
+                </h2>
+
+                <p class="subtitulo">
+                    Atualizado hoje
+                </p>
+
                 <div class="linha-titulo"></div>
+
                 <article>
+
                     <div class="noticia-imagem">
-                        <span class="etiqueta">DESTAQUE</span>
+
+                        <span class="etiqueta">
+                            DESTAQUE
+                        </span>
+
                         <img src="imagens/alexandre-moraes.jpg" alt="Notícia em destaque">
+
                     </div>
-                    <div class="legenda">Alexandre de Moraes em sessão da Primeira Turma do STF.</div>
+
+                    <div class="legenda">
+                        Alexandre de Moraes em sessão da Primeira Turma do STF.
+                    </div>
+
                     <div class="conteudo-noticia">
-                        <h2>Moraes cancela pronunciamento convocado após decisões de Fachin em meio à crise no STF</h2>
-                        <p>O ministro <span class="vermelho">Alexandre de Moraes</span> <strong>decidiu cancelar o
-                                pronunciamento à imprensa</strong> que havia convocado para a manhã desta quinta-feira
-                            (10), em meio à crise que envolve o Supremo Tribunal Federal (STF).</p>
-                        <p>O gabinete do ministro havia informado apenas o horário da manifestação, sem divulgar
-                            oficialmente qual seria o tema da fala. <span class="destacado">Pouco tempo depois, anunciou
-                                o cancelamento e disse que seria "remarcado em data oportuna".</span></p>
-                        <p>Nos bastidores, interlocutores do Supremo afirmam que a expectativa era que Moraes faria uma
-                            <span class="vermelho">defesa da condução do inquérito das fake news</span> e apresentaria
-                            considerações gerais sobre as investigações.
+
+                        <h2>
+                            Moraes cancela pronunciamento convocado após decisões de Fachin em meio à crise no STF
+                        </h2>
+
+                        <p>
+                            O ministro
+                            <span class="vermelho">
+                                Alexandre de Moraes
+                            </span>
+
+                            <strong>
+                                decidiu cancelar o pronunciamento à imprensa
+                            </strong>
+
+                            que havia convocado para a manhã desta quinta-feira (10),
+                            em meio à crise que envolve o Supremo Tribunal Federal (STF).
                         </p>
+
+                        <p>
+                            O gabinete do ministro havia informado apenas o horário
+                            da manifestação, sem divulgar oficialmente qual seria
+                            o tema da fala.
+                        </p>
+
+                        <p>
+                            Nos bastidores, interlocutores do Supremo afirmam que
+                            a expectativa era que Moraes faria uma
+                            <span class="vermelho">
+                                defesa da condução do inquérito das fake news
+                            </span>.
+                        </p>
+
                         <div class="informacoes">
-                            <span>Brasil</span>
-                            <span>•</span>
-                            <span>Política</span>
-                            <span>•</span>
-                            <span>Notícia em destaque</span>
+
+                            <span>
+                                Brasil
+                            </span>
+
+                            <span>
+                                •
+                            </span>
+
+                            <span>
+                                Política
+                            </span>
+
+                            <span>
+                                •
+                            </span>
+
+                            <span>
+                                Notícia em destaque
+                            </span>
+
                         </div>
+
                     </div>
+
                 </article>
+
             </section>
+
             <section>
-                <h2>Vídeo em destaque</h2>
-                <p class="subtitulo">Confira as imagens da notícia</p>
+
+                <h2>
+                    Mais notícias
+                </h2>
+
+                <p class="subtitulo">
+                    Confira outros assuntos em destaque
+                </p>
+
                 <div class="linha-titulo"></div>
-                <div class="video-exemplo">
-                    <video class="video-amostra" controls poster="imagens/capa-video.jpg">
-                        <source src="videos/video.mp4" type="video/mp4">
-                        Seu navegador não suporta vídeos.
-                    </video>
-                    <div class="legenda-video">Clima na região.</div>
-                </div>
-            </section>
-            <section>
-                <h2>Mais notícias</h2>
-                <p class="subtitulo">Confira outros assuntos em destaque</p>
-                <div class="linha-titulo"></div>
+
                 <div class="cards">
+
                     <article class="card">
+
                         <div class="card-imagem">
-                            <span class="categoria">BRASIL</span>
+
+                            <span class="categoria">
+                                BRASIL
+                            </span>
+
                             <img src="imagens/programa-familia.jpg" alt="Programa social">
+
                         </div>
+
                         <div class="card-conteudo">
-                            <h3>Programa social ganha destaque entre os assuntos do dia</h3>
-                            <p>Benefícios e iniciativas sociais estão entre os temas acompanhados pelo público.</p>
+
+                            <h3>
+                                Programa social ganha destaque entre os assuntos do dia
+                            </h3>
+
+                            <p>
+                                Benefícios e iniciativas sociais estão entre os temas acompanhados pelo público.
+                            </p>
+
                         </div>
+
                     </article>
+
                     <article class="card">
+
                         <div class="card-imagem">
-                            <span class="categoria">MUNDO</span>
+
+                            <span class="categoria">
+                                MUNDO
+                            </span>
+
                             <img src="imagens/trump-lula.jpg" alt="Encontro entre líderes">
+
                         </div>
+
                         <div class="card-conteudo">
-                            <h3>Encontro entre líderes chama atenção na agenda internacional</h3>
-                            <p>Relações internacionais e encontros diplomáticos estão entre os assuntos em destaque.</p>
+
+                            <h3>
+                                Encontro entre líderes chama atenção na agenda internacional
+                            </h3>
+
+                            <p>
+                                Relações internacionais e encontros diplomáticos estão entre os assuntos em destaque.
+                            </p>
+
                         </div>
+
                     </article>
+
                     <article class="card">
+
                         <div class="card-imagem">
-                            <span class="categoria">CIDADES</span>
+
+                            <span class="categoria">
+                                CIDADES
+                            </span>
+
                             <img src="imagens/cidade.jpg" alt="Paisagem de uma cidade">
+
                         </div>
+
                         <div class="card-conteudo">
-                            <h3>Cidade em destaque: paisagens, crescimento e desenvolvimento</h3>
-                            <p>Conheça um pouco mais sobre cidades, regiões e os acontecimentos que movimentam seus
-                                moradores.</p>
+
+                            <h3>
+                                Cidade em destaque: paisagens, crescimento e desenvolvimento
+                            </h3>
+
+                            <p>
+                                Conheça um pouco mais sobre cidades, regiões e os acontecimentos que movimentam seus
+                                moradores.
+                            </p>
+
                         </div>
+
                     </article>
+
                 </div>
+
             </section>
+
             <section class="desempenho">
-                <h2>Desempenho das notícias</h2>
-                <p class="subtitulo">Acompanhe o desempenho das principais publicações.</p>
+
+                <h2>
+                    Desempenho das notícias
+                </h2>
+
+                <p class="subtitulo">
+                    Acompanhe o desempenho das principais publicações.
+                </p>
+
                 <div class="linha-titulo"></div>
+
                 <table>
+
                     <thead>
+
                         <tr>
-                            <th>Notícia</th>
-                            <th>Categoria</th>
-                            <th>Autor</th>
-                            <th>Visualizações</th>
+
+                            <th>
+                                Notícia
+                            </th>
+
+                            <th>
+                                Categoria
+                            </th>
+
+                            <th>
+                                Autor
+                            </th>
+
+                            <th>
+                                Visualizações
+                            </th>
+
                         </tr>
+
                     </thead>
+
                     <tbody>
+
                         <tr>
-                            <td>Moraes cancela pronunciamento convocado</td>
-                            <td>Brasil</td>
-                            <td>Ana Clara</td>
-                            <td>12.450</td>
+
+                            <td>
+                                Moraes cancela pronunciamento convocado
+                            </td>
+
+                            <td>
+                                Brasil
+                            </td>
+
+                            <td>
+                                Ana Clara
+                            </td>
+
+                            <td>
+                                12.450
+                            </td>
+
                         </tr>
+
                         <tr>
-                            <td>Programa social ganha destaque</td>
-                            <td>Brasil</td>
-                            <td>Maria Silva</td>
-                            <td>9.820</td>
+
+                            <td>
+                                Programa social ganha destaque
+                            </td>
+
+                            <td>
+                                Brasil
+                            </td>
+
+                            <td>
+                                Maria Silva
+                            </td>
+
+                            <td>
+                                9.820
+                            </td>
+
                         </tr>
+
                         <tr>
-                            <td>Encontro entre líderes chama atenção</td>
-                            <td>Mundo</td>
-                            <td>João Santos</td>
-                            <td>8.375</td>
+
+                            <td>
+                                Encontro entre líderes chama atenção
+                            </td>
+
+                            <td>
+                                Mundo
+                            </td>
+
+                            <td>
+                                João Santos
+                            </td>
+
+                            <td>
+                                8.375
+                            </td>
+
                         </tr>
+
                         <tr>
-                            <td>Cidade em destaque</td>
-                            <td>Cidades</td>
-                            <td>Lucas Oliveira</td>
-                            <td>6.910</td>
+
+                            <td>
+                                Cidade em destaque
+                            </td>
+
+                            <td>
+                                Cidades
+                            </td>
+
+                            <td>
+                                Lucas Oliveira
+                            </td>
+
+                            <td>
+                                6.910
+                            </td>
+
                         </tr>
+
                     </tbody>
+
                     <tfoot>
+
                         <tr>
-                            <td colspan="4">Total de notícias: 4</td>
+
+                            <td colspan="4">
+                                Total de notícias: 4
+                            </td>
+
                         </tr>
+
                     </tfoot>
+
                 </table>
+
             </section>
+
         </main>
+
     </div>
+
     <footer>
-        <p>© 2026 Notícias Hoje! — Informação, atualidade e notícias.</p>
+
+        <p>
+            © 2026 Notícias Hoje! — Informação, atualidade e notícias.
+        </p>
+
     </footer>
+
 </body>
 
 </html>
